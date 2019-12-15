@@ -1,8 +1,12 @@
 package com.example.demo.Model;
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Books {
@@ -10,9 +14,9 @@ public class Books {
 	public Books() {
 			}
 
-	public Books(String title, String authorName, int numberOfPages) {
+	public Books(String title, Author author, int numberOfPages) {
 		this.title = title;
-		this.authorName = authorName;
+		this.author = author;
 		this.numberOfPages = numberOfPages;
 	}
 
@@ -22,13 +26,25 @@ public class Books {
 	
 	private String title;
 	
-	private String authorName;
+	@ManyToOne
+	private Author author;
 	
 	private int price;
 	
 	private int rating;
 	
 	private int numberOfPages;
+	
+	@ElementCollection
+	private List<String> tags;
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
 
 	public Long getId() {
 		return id;
@@ -46,12 +62,12 @@ public class Books {
 		this.title = title;
 	}
 
-	public String getAuthorName() {
-		return authorName;
+	public Author getAuthorName() {
+		return author;
 	}
 
 	public void setAuthorName(String authorName) {
-		this.authorName = authorName;
+		this.author = author;
 	}
 
 	public int getPrice() {
